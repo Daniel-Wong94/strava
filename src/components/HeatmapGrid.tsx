@@ -2,7 +2,6 @@
 
 import { useMemo } from 'react'
 import type { StravaActivity } from '@/lib/types'
-import { useSettings } from '@/lib/settings-context'
 
 interface Props {
   activities: StravaActivity[]
@@ -11,37 +10,12 @@ interface Props {
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-// All classes must be spelled out in full for Tailwind JIT to include them
-const COLOR_SCHEMES = {
-  orange: [
-    'heatmap-0',
-    'heatmap-1',
-    'heatmap-2',
-    'heatmap-3',
-    'heatmap-4',
-  ],
-  green: [
-    'bg-[#ebedf0] dark:bg-[#161b22]',
-    'bg-[#9be9a8] dark:bg-[#0e4429]',
-    'bg-[#40c463] dark:bg-[#006d32]',
-    'bg-[#30a14e] dark:bg-[#26a641]',
-    'bg-[#216e39] dark:bg-[#39d353]',
-  ],
-  blue: [
-    'bg-[#ebedf0] dark:bg-[#161b22]',
-    'bg-[#bae6fd] dark:bg-[#0c2a4a]',
-    'bg-[#38bdf8] dark:bg-[#075985]',
-    'bg-[#0284c7] dark:bg-[#0284c7]',
-    'bg-[#0c4a6e] dark:bg-[#38bdf8]',
-  ],
-}
-
-function getIntensity(count: number): number {
-  if (count === 0) return 0
-  if (count <= 2) return 1
-  if (count <= 4) return 2
-  if (count <= 6) return 3
-  return 4
+function getColorClass(count: number): string {
+  if (count === 0) return 'heatmap-0'
+  if (count <= 2) return 'heatmap-1'
+  if (count <= 4) return 'heatmap-2'
+  if (count <= 6) return 'heatmap-3'
+  return 'heatmap-4'
 }
 
 interface DayCell {
@@ -51,9 +25,6 @@ interface DayCell {
 }
 
 export function HeatmapGrid({ activities }: Props) {
-  const { settings } = useSettings()
-  const colorClasses = COLOR_SCHEMES[settings.heatmapColor]
-
   const { weeks, monthLabels } = useMemo(() => {
     const countByDate: Record<string, number> = {}
     for (const activity of activities) {
@@ -85,7 +56,6 @@ export function HeatmapGrid({ activities }: Props) {
           const dateStr = date.toISOString().split('T')[0]
           week.push({ date, count: countByDate[dateStr] || 0, dateStr })
 
-          // Track month label changes (only label at first day of month)
           if (d === 0) {
             const month = date.getMonth()
             if (month !== lastMonth) {
@@ -106,16 +76,6 @@ export function HeatmapGrid({ activities }: Props) {
       <div className="inline-block">
         {/* Month labels */}
         <div className="flex mb-1 ml-8">
-          {monthLabels.map(({ weekIndex, label }) => (
-            <div
-              key={`${weekIndex}-${label}`}
-              className="text-xs text-gray-500 dark:text-gray-400 absolute"
-              style={{ marginLeft: `${weekIndex * 14}px` }}
-            >
-              {label}
-            </div>
-          ))}
-          {/* Spacer to give month labels room */}
           <div style={{ height: '16px', width: `${53 * 14}px` }} className="relative overflow-hidden">
             {monthLabels.map(({ weekIndex, label }) => (
               <span
@@ -154,7 +114,7 @@ export function HeatmapGrid({ activities }: Props) {
                       : ''
                   }
                   className={`w-[11px] h-[11px] rounded-sm transition-opacity ${
-                    day.date ? colorClasses[getIntensity(day.count)] : 'opacity-0'
+                    day.date ? getColorClass(day.count) : 'opacity-0'
                   }`}
                 />
               ))}
@@ -166,7 +126,7 @@ export function HeatmapGrid({ activities }: Props) {
         <div className="flex items-center gap-1 mt-2 justify-end text-xs text-gray-500 dark:text-gray-400">
           <span>Less</span>
           {[0, 1, 3, 5, 7].map((v) => (
-            <div key={v} className={`w-[11px] h-[11px] rounded-sm ${colorClasses[getIntensity(v)]}`} />
+            <div key={v} className={`w-[11px] h-[11px] rounded-sm ${getColorClass(v)}`} />
           ))}
           <span>More</span>
         </div>

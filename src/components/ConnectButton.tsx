@@ -2,7 +2,7 @@ export function ConnectButton() {
   return (
     <a
       href="/api/auth/strava"
-      className="inline-flex items-center gap-3 bg-[#FC4C02] hover:bg-[#E34402] text-white font-semibold px-6 py-3 rounded-lg transition-colors text-lg shadow-lg"
+      className="inline-flex items-center gap-3 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white font-semibold px-6 py-3 rounded-lg transition-colors text-lg shadow-lg"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

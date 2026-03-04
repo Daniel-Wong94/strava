@@ -4,12 +4,12 @@ import { createContext, useContext, useEffect, useState, ReactNode } from 'react
 
 export type Theme = 'light' | 'dark' | 'system'
 export type Units = 'metric' | 'imperial'
-export type HeatmapColor = 'green' | 'orange' | 'blue'
+export type ColorScheme = 'orange' | 'green' | 'blue'
 
 export interface Settings {
   theme: Theme
   units: Units
-  heatmapColor: HeatmapColor
+  colorScheme: ColorScheme
 }
 
 interface SettingsContextValue {
@@ -20,7 +20,7 @@ interface SettingsContextValue {
 const DEFAULT_SETTINGS: Settings = {
   theme: 'system',
   units: 'metric',
-  heatmapColor: 'orange',
+  colorScheme: 'orange',
 }
 
 const STORAGE_KEY = 'strava_prefs'
@@ -43,6 +43,10 @@ function applyTheme(theme: Theme) {
   }
 }
 
+function applyColorScheme(scheme: ColorScheme) {
+  document.documentElement.setAttribute('data-color-scheme', scheme)
+}
+
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS)
   const [mounted, setMounted] = useState(false)
@@ -58,6 +62,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!mounted) return
     applyTheme(settings.theme)
+    applyColorScheme(settings.colorScheme)
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(settings))
     } catch {}

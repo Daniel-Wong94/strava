@@ -23,7 +23,7 @@ export function SportTypeCard({ sport, pinned }: Props) {
           <span className="text-2xl">{getSportIcon(sport.sport_type)}</span>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-[#FC4C02] group-hover:underline text-sm">
+              <span className="font-semibold text-[var(--accent)] group-hover:underline text-sm">
                 {getSportLabel(sport.sport_type)}
               </span>
               {pinned && (
@@ -56,8 +56,8 @@ export function SportTypeCard({ sport, pinned }: Props) {
         )}
       </div>
 
-      {/* Sport type color bar */}
-      <div className="mt-3 h-1 rounded-full bg-[#FC4C02] opacity-60" style={{ width: '100%' }} />
+      {/* Color bar */}
+      <div className="mt-3 h-1 rounded-full bg-[var(--accent)] opacity-60" style={{ width: '100%' }} />
     </Link>
   )
 }

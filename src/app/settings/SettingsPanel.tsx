@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useSettings } from '@/lib/settings-context'
-import type { Theme, Units, HeatmapColor } from '@/lib/settings-context'
+import type { Theme, Units, ColorScheme } from '@/lib/settings-context'
 
 function OptionGroup<T extends string>({
   label,
@@ -11,7 +11,7 @@ function OptionGroup<T extends string>({
   onChange,
 }: {
   label: string
-  options: { value: T; label: string; description?: string }[]
+  options: { value: T; label: string }[]
   value: T
   onChange: (v: T) => void
 }) {
@@ -25,7 +25,7 @@ function OptionGroup<T extends string>({
             onClick={() => onChange(opt.value)}
             className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
               value === opt.value
-                ? 'bg-[#FC4C02] border-[#FC4C02] text-white font-medium'
+                ? 'bg-[var(--accent)] border-[var(--accent)] text-white font-medium'
                 : 'border-gray-300 dark:border-[#30363d] text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-[#8b949e] bg-white dark:bg-[#0d1117]'
             }`}
           >
@@ -37,10 +37,26 @@ function OptionGroup<T extends string>({
   )
 }
 
-const HEATMAP_PREVIEW: Record<HeatmapColor, string[]> = {
-  orange: ['bg-[#ebedf0] dark:bg-[#161b22]', 'bg-[#fdba74] dark:bg-[#7c2d12]', 'bg-[#fb923c] dark:bg-[#9a3412]', 'bg-[#ea580c] dark:bg-[#c2410c]', 'bg-[#FC4C02] dark:bg-[#ea580c]'],
-  green: ['bg-[#ebedf0] dark:bg-[#161b22]', 'bg-[#9be9a8] dark:bg-[#0e4429]', 'bg-[#40c463] dark:bg-[#006d32]', 'bg-[#30a14e] dark:bg-[#26a641]', 'bg-[#216e39] dark:bg-[#39d353]'],
-  blue: ['bg-[#ebedf0] dark:bg-[#161b22]', 'bg-[#bae6fd] dark:bg-[#0c2a4a]', 'bg-[#38bdf8] dark:bg-[#075985]', 'bg-[#0284c7] dark:bg-[#0284c7]', 'bg-[#0c4a6e] dark:bg-[#38bdf8]'],
+// Hardcoded preview colors for each scheme (shown regardless of current selection)
+const SCHEME_PREVIEW: Record<ColorScheme, { accent: string; heatmap: string[] }> = {
+  orange: {
+    accent: '#FC4C02',
+    heatmap: ['#ebedf0', '#fdba74', '#fb923c', '#ea580c', '#FC4C02'],
+  },
+  green: {
+    accent: '#22c55e',
+    heatmap: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+  },
+  blue: {
+    accent: '#3b82f6',
+    heatmap: ['#ebedf0', '#bae6fd', '#38bdf8', '#0284c7', '#0c4a6e'],
+  },
+}
+
+const SCHEME_LABELS: Record<ColorScheme, string> = {
+  orange: 'Orange',
+  green: 'Green',
+  blue: 'Blue',
 }
 
 export function SettingsPanel() {
@@ -55,8 +71,8 @@ export function SettingsPanel() {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
-              fill="#FC4C02"
-              className="w-6 h-6"
+              fill="currentColor"
+              className="w-6 h-6 text-[var(--accent)]"
             >
               <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.172" />
             </svg>
@@ -107,37 +123,50 @@ export function SettingsPanel() {
             />
           </div>
 
-          {/* Heatmap color */}
+          {/* Color scheme */}
           <div className="p-5 border border-gray-200 dark:border-[#30363d] rounded-lg bg-white dark:bg-[#0d1117]">
             <p className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
-              Heatmap color scheme
+              Color scheme
             </p>
             <div className="flex flex-wrap gap-3">
-              {(['orange', 'green', 'blue'] as HeatmapColor[]).map((color) => (
-                <button
-                  key={color}
-                  onClick={() => updateSetting('heatmapColor', color)}
-                  className={`flex flex-col items-center gap-2 px-4 py-3 rounded-lg border transition-colors ${
-                    settings.heatmapColor === color
-                      ? 'border-[#FC4C02] ring-1 ring-[#FC4C02]'
-                      : 'border-gray-300 dark:border-[#30363d] hover:border-gray-400 dark:hover:border-[#8b949e]'
-                  }`}
-                >
-                  {/* Mini heatmap preview */}
-                  <div className="flex gap-0.5">
-                    {HEATMAP_PREVIEW[color].map((cls, i) => (
-                      <div key={i} className={`w-3 h-3 rounded-sm ${cls}`} />
-                    ))}
-                  </div>
-                  <span className={`text-xs capitalize font-medium ${
-                    settings.heatmapColor === color
-                      ? 'text-[#FC4C02]'
-                      : 'text-gray-600 dark:text-gray-400'
-                  }`}>
-                    {color}
-                  </span>
-                </button>
-              ))}
+              {(Object.keys(SCHEME_PREVIEW) as ColorScheme[]).map((scheme) => {
+                const { accent, heatmap } = SCHEME_PREVIEW[scheme]
+                const isSelected = settings.colorScheme === scheme
+                return (
+                  <button
+                    key={scheme}
+                    onClick={() => updateSetting('colorScheme', scheme)}
+                    className={`flex flex-col items-center gap-2.5 px-4 py-3 rounded-lg border transition-colors ${
+                      isSelected
+                        ? 'border-[var(--accent)] ring-1 ring-[var(--accent)]'
+                        : 'border-gray-300 dark:border-[#30363d] hover:border-gray-400 dark:hover:border-[#8b949e]'
+                    }`}
+                  >
+                    {/* Accent dot + heatmap gradient */}
+                    <div className="flex items-center gap-1.5">
+                      <div
+                        className="w-3 h-3 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: accent }}
+                      />
+                      <div className="flex gap-0.5">
+                        {heatmap.map((color, i) => (
+                          <div
+                            key={i}
+                            className="w-3 h-3 rounded-sm"
+                            style={{ backgroundColor: color }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    <span
+                      className="text-xs font-medium"
+                      style={{ color: isSelected ? accent : undefined }}
+                    >
+                      {SCHEME_LABELS[scheme]}
+                    </span>
+                  </button>
+                )
+              })}
             </div>
           </div>
         </div>

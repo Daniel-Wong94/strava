@@ -11,9 +11,11 @@ const antiFlashScript = `
 try {
   var p = JSON.parse(localStorage.getItem('strava_prefs') || '{}');
   var t = p.theme || 'system';
+  var s = p.colorScheme || 'orange';
   if (t === 'dark' || (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.documentElement.classList.add('dark');
   }
+  document.documentElement.setAttribute('data-color-scheme', s);
 } catch(e) {}
 `
 

@@ -3,14 +3,60 @@
 @tailwind utilities;
 
 @layer base {
+  /* ── Default color scheme: orange (Strava) ── */
   :root {
     --background: #ffffff;
     --foreground: #0d1117;
+    --accent: #FC4C02;
+    --accent-hover: #E34402;
+    --hm-1: #fdba74;
+    --hm-2: #fb923c;
+    --hm-3: #ea580c;
+    --hm-4: #FC4C02;
   }
 
+  /* Dark mode overrides for heatmap (orange scheme) */
   .dark {
     --background: #0d1117;
     --foreground: #e6edf3;
+    --hm-1: #7c2d12;
+    --hm-2: #9a3412;
+    --hm-3: #c2410c;
+    --hm-4: #ea580c;
+  }
+
+  /* ── Green scheme ── */
+  [data-color-scheme="green"] {
+    --accent: #22c55e;
+    --accent-hover: #16a34a;
+    --hm-1: #9be9a8;
+    --hm-2: #40c463;
+    --hm-3: #30a14e;
+    --hm-4: #216e39;
+  }
+
+  [data-color-scheme="green"].dark {
+    --hm-1: #0e4429;
+    --hm-2: #006d32;
+    --hm-3: #26a641;
+    --hm-4: #39d353;
+  }
+
+  /* ── Blue scheme ── */
+  [data-color-scheme="blue"] {
+    --accent: #3b82f6;
+    --accent-hover: #2563eb;
+    --hm-1: #bae6fd;
+    --hm-2: #38bdf8;
+    --hm-3: #0284c7;
+    --hm-4: #0c4a6e;
+  }
+
+  [data-color-scheme="blue"].dark {
+    --hm-1: #0c2a4a;
+    --hm-2: #075985;
+    --hm-3: #0284c7;
+    --hm-4: #38bdf8;
   }
 
   body {
@@ -23,15 +69,15 @@
     @apply bg-[#ebedf0] dark:bg-[#161b22];
   }
   .heatmap-1 {
-    @apply bg-[#fdba74] dark:bg-[#7c2d12];
+    background-color: var(--hm-1);
   }
   .heatmap-2 {
-    @apply bg-[#fb923c] dark:bg-[#9a3412];
+    background-color: var(--hm-2);
   }
   .heatmap-3 {
-    @apply bg-[#ea580c] dark:bg-[#c2410c];
+    background-color: var(--hm-3);
   }
   .heatmap-4 {
-    @apply bg-[#FC4C02] dark:bg-[#ea580c];
+    background-color: var(--hm-4);
   }
 }

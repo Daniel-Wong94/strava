@@ -10,7 +10,7 @@ export default function LandingPage({
       <div className="text-center max-w-md px-6">
         {/* Logo / Icon */}
         <div className="flex justify-center mb-6">
-          <div className="w-20 h-20 bg-[#FC4C02] rounded-2xl flex items-center justify-center shadow-xl">
+          <div className="w-20 h-20 bg-[var(--accent)] rounded-2xl flex items-center justify-center shadow-xl">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

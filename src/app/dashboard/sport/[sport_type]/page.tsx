@@ -70,8 +70,8 @@ export default async function SportDetailPage({ params }: Props) {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
-              fill="#FC4C02"
-              className="w-6 h-6"
+              fill="currentColor"
+              className="w-6 h-6 text-[var(--accent)]"
             >
               <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.172" />
             </svg>
@@ -95,7 +95,7 @@ export default async function SportDetailPage({ params }: Props) {
         <nav className="flex items-center gap-1 text-sm mb-6">
           <Link
             href="/dashboard"
-            className="text-[#FC4C02] hover:underline font-medium"
+            className="text-[var(--accent)] hover:underline font-medium"
           >
             {athlete.firstname} {athlete.lastname}
           </Link>
