@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #0d1117;
+  }
+
+  .dark {
+    --background: #0d1117;
+    --foreground: #e6edf3;
+  }
+
+  body {
+    @apply bg-white dark:bg-[#0d1117] text-gray-900 dark:text-[#e6edf3];
+  }
+}
+
+@layer utilities {
+  .heatmap-0 {
+    @apply bg-[#ebedf0] dark:bg-[#161b22];
+  }
+  .heatmap-1 {
+    @apply bg-[#fdba74] dark:bg-[#7c2d12];
+  }
+  .heatmap-2 {
+    @apply bg-[#fb923c] dark:bg-[#9a3412];
+  }
+  .heatmap-3 {
+    @apply bg-[#ea580c] dark:bg-[#c2410c];
+  }
+  .heatmap-4 {
+    @apply bg-[#FC4C02] dark:bg-[#ea580c];
+  }
+}
