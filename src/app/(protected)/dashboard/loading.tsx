@@ -1,30 +1,10 @@
-import { FaRunning } from 'react-icons/fa'
-import { IoMdSettings } from 'react-icons/io'
-import Link from 'next/link'
-
 function Skeleton({ className }: { className: string }) {
   return <div className={`animate-pulse rounded bg-gray-200 dark:bg-[#30363d] ${className}`} />
 }
 
 export default function DashboardLoading() {
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0d1117]">
-      {/* Top nav */}
-      <header className="border-b border-gray-200 dark:border-[#30363d] bg-white dark:bg-[#161b22]">
-        <div className="max-w-screen-xl mx-auto px-4 h-12 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <FaRunning size={24} className="text-[var(--accent)]" />
-            <span className="font-semibold text-gray-900 dark:text-white text-sm">Fitness Repo</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link href="/settings" className="text-gray-500 dark:text-gray-400">
-              <IoMdSettings size={18} />
-            </Link>
-            <Skeleton className="h-4 w-14" />
-          </div>
-        </div>
-      </header>
-
+    <>
       <div className="max-w-screen-xl mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar skeleton */}
@@ -97,6 +77,6 @@ export default function DashboardLoading() {
           </main>
         </div>
       </div>
-    </div>
+    </>
   )
 }

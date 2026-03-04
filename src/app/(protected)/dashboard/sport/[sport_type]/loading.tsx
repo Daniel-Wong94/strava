@@ -1,23 +1,10 @@
-import { FaRunning } from 'react-icons/fa'
-
 function Skeleton({ className }: { className: string }) {
   return <div className={`animate-pulse rounded bg-gray-200 dark:bg-[#30363d] ${className}`} />
 }
 
 export default function SportDetailLoading() {
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0d1117]">
-      {/* Top nav */}
-      <header className="border-b border-gray-200 dark:border-[#30363d] bg-white dark:bg-[#161b22]">
-        <div className="max-w-screen-xl mx-auto px-4 h-12 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <FaRunning size={24} className="text-[var(--accent)]" />
-            <span className="font-semibold text-gray-900 dark:text-white text-sm">Fitness Repo</span>
-          </div>
-          <Skeleton className="h-4 w-14" />
-        </div>
-      </header>
-
+    <>
       <div className="max-w-screen-xl mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <Skeleton className="h-4 w-48 mb-6" />
@@ -49,6 +36,6 @@ export default function SportDetailLoading() {
           ))}
         </div>
       </div>
-    </div>
+    </>
   )
 }

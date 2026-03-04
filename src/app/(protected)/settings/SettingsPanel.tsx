@@ -1,9 +1,7 @@
 'use client'
 
-import Link from 'next/link'
 import { useSettings } from '@/lib/settings-context'
 import type { Theme, Units, ColorScheme } from '@/lib/settings-context'
-import { FaRunning } from 'react-icons/fa'
 
 function OptionGroup<T extends string>({
   label,
@@ -64,25 +62,7 @@ export function SettingsPanel() {
   const { settings, updateSetting } = useSettings()
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0d1117]">
-      {/* Header */}
-      <header className="border-b border-gray-200 dark:border-[#30363d] bg-white dark:bg-[#161b22]">
-        <div className="max-w-screen-xl mx-auto px-4 h-12 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <FaRunning size={24} className="text-[var(--accent)]" />
-            <span className="font-semibold text-gray-900 dark:text-white text-sm">
-              Fitness Repo
-            </span>
-          </div>
-          <Link
-            href="/dashboard"
-            className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-          >
-            ← Back to dashboard
-          </Link>
-        </div>
-      </header>
-
+    <>
       <div className="max-w-2xl mx-auto px-4 py-10">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Settings</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-8">
@@ -165,6 +145,6 @@ export function SettingsPanel() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

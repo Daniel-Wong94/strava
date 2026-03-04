@@ -14,7 +14,6 @@ import { StatsBar } from '@/components/StatsBar'
 import { ActivityFeed } from '@/components/ActivityFeed'
 import { SportBests } from '@/components/SportBests'
 import { GearBar } from '@/components/GearBar'
-import { FaRunning } from 'react-icons/fa'
 
 interface Props {
   params: { sport_type: string }
@@ -107,27 +106,7 @@ export default async function SportDetailPage({ params }: Props) {
     }))
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0d1117]">
-      {/* Top nav */}
-      <header className="border-b border-gray-200 dark:border-[#30363d] bg-white dark:bg-[#161b22]">
-        <div className="max-w-screen-xl mx-auto px-4 h-12 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <FaRunning size={24} className="text-[var(--accent)]" />
-            <span className="font-semibold text-gray-900 dark:text-white text-sm">
-              Fitness Repo
-            </span>
-          </div>
-          <form action="/api/auth/logout" method="POST">
-            <button
-              type="submit"
-              className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-            >
-              Sign out
-            </button>
-          </form>
-        </div>
-      </header>
-
+    <>
       <div className="max-w-screen-xl mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-1 text-sm mb-6">
@@ -218,6 +197,6 @@ export default async function SportDetailPage({ params }: Props) {
           </aside>
         </div>
       </div>
-    </div>
+    </>
   )
 }
