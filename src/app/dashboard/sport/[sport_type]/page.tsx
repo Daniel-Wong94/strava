@@ -27,13 +27,10 @@ export default async function SportDetailPage({ params }: Props) {
   const sportType = decodeURIComponent(params.sport_type)
 
   const athlete = await fetchAthlete(session.access_token)
-  const createdAt = athlete.created_at
-    ? Math.floor(new Date(athlete.created_at).getTime() / 1000)
-    : 0
   const createdYear = athlete.created_at
     ? new Date(athlete.created_at).getFullYear()
     : new Date().getFullYear()
-  const allActivities = await fetchAllActivities(session.access_token, createdAt)
+  const allActivities = await fetchAllActivities(session.access_token)
 
   const activities = allActivities.filter((a) => a.sport_type === sportType)
 

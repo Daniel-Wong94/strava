@@ -28,14 +28,11 @@ export default async function DashboardPage() {
     fetchClubs(session.access_token),
   ])
 
-  const createdAt = athlete.created_at
-    ? Math.floor(new Date(athlete.created_at).getTime() / 1000)
-    : 0
   const createdYear = athlete.created_at
     ? new Date(athlete.created_at).getFullYear()
     : new Date().getFullYear()
 
-  const activities = await fetchAllActivities(session.access_token, createdAt)
+  const activities = await fetchAllActivities(session.access_token)
 
   const sportStats = computeSportStats(activities)
   const pinnedSports = sportStats.slice(0, 4)
@@ -220,7 +217,7 @@ export default async function DashboardPage() {
             {/* Activity feed */}
             <div className="mt-8">
               <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
-                Recent activity
+                Recent Activities
               </h2>
               <ActivityFeed activities={activities} />
             </div>

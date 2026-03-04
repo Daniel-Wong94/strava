@@ -18,23 +18,6 @@ export async function fetchAthlete(accessToken: string): Promise<StravaAthlete> 
   return res.json()
 }
 
-export async function fetchActivities(
-  accessToken: string,
-  after: number,
-  page = 1,
-  perPage = 200
-): Promise<StravaActivity[]> {
-  const res = await fetch(
-    `${STRAVA_API}/athlete/activities?after=${after}&page=${page}&per_page=${perPage}`,
-    {
-      headers: { Authorization: `Bearer ${accessToken}` },
-      cache: 'no-store',
-    }
-  )
-  if (!res.ok) throw new Error(`Failed to fetch activities: ${res.status}`)
-  return res.json()
-}
-
 export async function fetchClubs(accessToken: string): Promise<StravaClub[]> {
   const res = await fetch(`${STRAVA_API}/athlete/clubs`, {
     headers: { Authorization: `Bearer ${accessToken}` },
@@ -51,14 +34,21 @@ export function get52WeeksAgo(): number {
 }
 
 export async function fetchAllActivities(
-  accessToken: string,
-  after: number
+  accessToken: string
 ): Promise<StravaActivity[]> {
   const allActivities: StravaActivity[] = []
   let page = 1
 
   while (true) {
-    const batch = await fetchActivities(accessToken, after, page, 200)
+    const res = await fetch(
+      `${STRAVA_API}/athlete/activities?page=${page}&per_page=200`,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+        cache: 'no-store',
+      }
+    )
+    if (!res.ok) throw new Error(`Failed to fetch activities: ${res.status}`)
+    const batch: StravaActivity[] = await res.json()
     allActivities.push(...batch)
     if (batch.length < 200) break
     page++
