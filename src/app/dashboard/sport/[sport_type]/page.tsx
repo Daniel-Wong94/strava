@@ -129,7 +129,7 @@ export default async function SportDetailPage({ params }: Props) {
           <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
             All {getSportLabel(sportType).toLowerCase()} activities
           </h2>
-          <ActivityFeed activities={activities} limit={Infinity} />
+          <ActivityFeed activities={activities} />
         </div>
       </div>
     </div>

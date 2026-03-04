@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { useState } from 'react'
 import type { StravaActivity } from '@/lib/types'
 import {
   getSportIcon,
@@ -12,15 +12,25 @@ import {
 import { ActivityBadge } from './ActivityBadge'
 import { useSettings } from '@/lib/settings-context'
 
+const PAGE_SIZE = 10
+
 interface Props {
   activities: StravaActivity[]
-  /** Max number of activities to show. Defaults to 20. Pass Infinity to show all. */
-  limit?: number
 }
 
-export function ActivityFeed({ activities, limit = 20 }: Props) {
+function pageNumbers(current: number, total: number): (number | '…')[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1)
+  if (current <= 4) return [1, 2, 3, 4, 5, '…', total]
+  if (current >= total - 3) return [1, '…', total - 4, total - 3, total - 2, total - 1, total]
+  return [1, '…', current - 1, current, current + 1, '…', total]
+}
+
+export function ActivityFeed({ activities }: Props) {
   const { settings } = useSettings()
-  const shown = limit === Infinity ? activities : activities.slice(0, limit)
+  const [page, setPage] = useState(1)
+
+  const totalPages = Math.ceil(activities.length / PAGE_SIZE)
+  const shown = activities.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   if (shown.length === 0) {
     return (
@@ -31,6 +41,7 @@ export function ActivityFeed({ activities, limit = 20 }: Props) {
   }
 
   return (
+    <div>
     <ol className="border border-gray-200 dark:border-[#30363d] rounded-lg divide-y divide-gray-200 dark:divide-[#30363d] overflow-hidden">
       {shown.map((activity) => (
         <li
@@ -99,5 +110,49 @@ export function ActivityFeed({ activities, limit = 20 }: Props) {
         </li>
       ))}
     </ol>
+
+    {totalPages > 1 && (
+      <div className="flex items-center justify-center gap-1 mt-4">
+        <button
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
+          disabled={page === 1}
+          className="px-2 py-1 text-sm rounded border border-gray-200 dark:border-[#30363d] text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#161b22] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          aria-label="Previous page"
+        >
+          ‹
+        </button>
+
+        {pageNumbers(page, totalPages).map((p, i) =>
+          p === '…' ? (
+            <span key={`ellipsis-${i}`} className="px-2 py-1 text-sm text-gray-400 dark:text-gray-500 select-none">
+              …
+            </span>
+          ) : (
+            <button
+              key={p}
+              onClick={() => setPage(p)}
+              className={`px-3 py-1 text-sm rounded border transition-colors ${
+                p === page
+                  ? 'border-[var(--accent)] bg-[var(--accent)] text-white font-medium'
+                  : 'border-gray-200 dark:border-[#30363d] text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#161b22]'
+              }`}
+              aria-current={p === page ? 'page' : undefined}
+            >
+              {p}
+            </button>
+          )
+        )}
+
+        <button
+          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+          disabled={page === totalPages}
+          className="px-2 py-1 text-sm rounded border border-gray-200 dark:border-[#30363d] text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#161b22] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          aria-label="Next page"
+        >
+          ›
+        </button>
+      </div>
+    )}
+    </div>
   )
 }

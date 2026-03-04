@@ -222,7 +222,7 @@ export default async function DashboardPage() {
               <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
                 Recent activity
               </h2>
-              <ActivityFeed activities={activities} limit={20} />
+              <ActivityFeed activities={activities} />
             </div>
           </main>
         </div>
