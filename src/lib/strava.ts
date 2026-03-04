@@ -9,7 +9,11 @@ export async function fetchAthlete(accessToken: string): Promise<StravaAthlete> 
     headers: { Authorization: `Bearer ${accessToken}` },
     cache: 'no-store',
   })
-  if (!res.ok) throw new Error(`Failed to fetch athlete: ${res.status}`)
+
+  if (!res.ok) {
+    console.error('Failed to fetch athlete:', await res.statusText)
+    throw new Error(`Failed to fetch athlete: ${res.status}`)
+  }
   return res.json()
 }
 

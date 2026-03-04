@@ -8,6 +8,7 @@ export interface StravaAthlete {
   country: string
   profile: string
   profile_medium: string
+  bio?: string
   follower_count?: number
   friend_count?: number
   created_at?: string

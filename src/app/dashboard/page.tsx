@@ -127,6 +127,34 @@ export default async function DashboardPage() {
               </div>
             )}
 
+            {/* Followers / Following */}
+            {(athlete.follower_count != null || athlete.friend_count != null) && (
+              <div className="flex items-center gap-1.5 mt-3 text-sm text-gray-600 dark:text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 flex-shrink-0">
+                  <path d="M2 5.5a3.5 3.5 0 1 1 5.898 2.549 5.508 5.508 0 0 1 3.034 4.084.75.75 0 1 1-1.482.235 4.001 4.001 0 0 0-7.9 0 .75.75 0 0 1-1.482-.236A5.507 5.507 0 0 1 3.102 8.05 3.493 3.493 0 0 1 2 5.5zM11 4a3.001 3.001 0 0 1 2.22 5.018 5.01 5.01 0 0 1 2.56 3.012.749.749 0 0 1-.885.954.752.752 0 0 1-.549-.514 3.507 3.507 0 0 0-2.522-2.372.75.75 0 0 1-.574-.73v-.352a.75.75 0 0 1 .416-.672A1.5 1.5 0 0 0 11 5.5.75.75 0 0 1 11 4zm-5.5-.5a2 2 0 1 0-.001 3.999A2 2 0 0 0 5.5 3.5z" />
+                </svg>
+                <span>
+                  <strong className="font-semibold text-gray-900 dark:text-white">{(athlete.follower_count ?? 0).toLocaleString()}</strong>
+                  {' '}followers
+                  <span className="mx-1">·</span>
+                  <strong className="font-semibold text-gray-900 dark:text-white">{(athlete.friend_count ?? 0).toLocaleString()}</strong>
+                  {' '}following
+                </span>
+              </div>
+            )}
+
+            {/* Bio */}
+            {athlete.bio && (
+              <div className="mt-6">
+                <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+                  Bio
+                </h2>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {athlete.bio}
+                </p>
+              </div>
+            )}
+
             {/* Clubs */}
             {clubs.length > 0 && (
               <div className="mt-6">
@@ -149,7 +177,7 @@ export default async function DashboardPage() {
           {/* Main content */}
           <main className="flex-1 min-w-0">
             {/* Stats bar */}
-            <StatsBar activities={activities} athlete={athlete} />
+            <StatsBar activities={activities} />
 
             {/* Heatmap */}
             <div className="mt-6 p-4 border border-gray-200 dark:border-[#30363d] rounded-lg bg-white dark:bg-[#0d1117]">
