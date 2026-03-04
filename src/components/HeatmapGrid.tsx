@@ -10,26 +10,33 @@ interface Props {
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-function getColorClass(count: number): string {
-  if (count === 0) return 'heatmap-0'
-  if (count <= 2) return 'heatmap-1'
-  if (count <= 4) return 'heatmap-2'
-  if (count <= 6) return 'heatmap-3'
-  return 'heatmap-4'
+function getColorClass(seconds: number): string {
+  if (seconds === 0)     return 'heatmap-0'
+  if (seconds <= 1800)   return 'heatmap-1'   // ≤ 30 min
+  if (seconds <= 3600)   return 'heatmap-2'   // ≤ 60 min
+  if (seconds <= 5400)   return 'heatmap-3'   // ≤ 90 min
+  return 'heatmap-4'                          // > 90 min
+}
+
+function fmtDuration(seconds: number): string {
+  const h = Math.floor(seconds / 3600)
+  const m = Math.floor((seconds % 3600) / 60)
+  if (h > 0) return `${h}h ${m}m`
+  return `${m}m`
 }
 
 interface DayCell {
   date: Date | null
-  count: number
+  seconds: number
   dateStr: string
 }
 
 export function HeatmapGrid({ activities }: Props) {
   const { weeks, monthLabels } = useMemo(() => {
-    const countByDate: Record<string, number> = {}
+    const secondsByDate: Record<string, number> = {}
     for (const activity of activities) {
       const date = activity.start_date_local.split('T')[0]
-      countByDate[date] = (countByDate[date] || 0) + 1
+      secondsByDate[date] = (secondsByDate[date] || 0) + activity.moving_time
     }
 
     const today = new Date()
@@ -51,10 +58,10 @@ export function HeatmapGrid({ activities }: Props) {
         date.setDate(start.getDate() + w * 7 + d)
 
         if (date > today) {
-          week.push({ date: null, count: 0, dateStr: '' })
+          week.push({ date: null, seconds: 0, dateStr: '' })
         } else {
           const dateStr = date.toISOString().split('T')[0]
-          week.push({ date, count: countByDate[dateStr] || 0, dateStr })
+          week.push({ date, seconds: secondsByDate[dateStr] || 0, dateStr })
 
           if (d === 0) {
             const month = date.getMonth()
@@ -110,11 +117,11 @@ export function HeatmapGrid({ activities }: Props) {
                   key={di}
                   title={
                     day.date
-                      ? `${day.date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}: ${day.count} ${day.count === 1 ? 'activity' : 'activities'}`
+                      ? `${day.date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}: ${day.seconds > 0 ? fmtDuration(day.seconds) + ' active' : 'no activity'}`
                       : ''
                   }
                   className={`w-[11px] h-[11px] rounded-sm transition-opacity ${
-                    day.date ? getColorClass(day.count) : 'opacity-0'
+                    day.date ? getColorClass(day.seconds) : 'opacity-0'
                   }`}
                 />
               ))}
@@ -125,7 +132,7 @@ export function HeatmapGrid({ activities }: Props) {
         {/* Legend */}
         <div className="flex items-center gap-1 mt-2 justify-end text-xs text-gray-500 dark:text-gray-400">
           <span>Less</span>
-          {[0, 1, 3, 5, 7].map((v) => (
+          {[0, 900, 2700, 4500, 6000].map((v) => (
             <div key={v} className={`w-[11px] h-[11px] rounded-sm ${getColorClass(v)}`} />
           ))}
           <span>More</span>
