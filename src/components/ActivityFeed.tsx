@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import type { StravaActivity } from '@/lib/types'
 import {
   getSportIcon,
@@ -44,10 +45,8 @@ export function ActivityFeed({ activities }: Props) {
     <div>
     <ol className="border border-gray-200 dark:border-[#30363d] rounded-lg divide-y divide-gray-200 dark:divide-[#30363d] overflow-hidden">
       {shown.map((activity) => (
-        <li
-          key={activity.id}
-          className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-[#161b22] transition-colors"
-        >
+        <li key={activity.id} className="hover:bg-gray-50 dark:hover:bg-[#161b22] transition-colors">
+          <Link href={`/dashboard/activity/${activity.id}`} className="flex items-start gap-3 px-4 py-3 w-full">
           {/* Sport icon */}
           <div className="flex-shrink-0 mt-0.5 text-xl">
             {getSportIcon(activity.sport_type)}
@@ -107,6 +106,7 @@ export function ActivityFeed({ activities }: Props) {
               </span>
             )}
           </div>
+          </Link>
         </li>
       ))}
     </ol>

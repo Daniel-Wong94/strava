@@ -1,4 +1,4 @@
-import type { StravaActivity, StravaAthlete, StravaClub, SportStats } from './types'
+import type { StravaActivity, StravaAthlete, StravaClub, SportStats, DetailedActivity, StravaComment } from './types'
 
 export type Units = 'metric' | 'imperial'
 
@@ -54,6 +54,24 @@ export async function fetchAllActivities(
     page++
   }
   return allActivities
+}
+
+export async function fetchActivity(accessToken: string, id: number): Promise<DetailedActivity> {
+  const res = await fetch(`${STRAVA_API}/activities/${id}`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    cache: 'no-store',
+  })
+  if (!res.ok) throw new Error(`Failed to fetch activity: ${res.status}`)
+  return res.json()
+}
+
+export async function fetchActivityComments(accessToken: string, id: number): Promise<StravaComment[]> {
+  const res = await fetch(`${STRAVA_API}/activities/${id}/comments?per_page=200`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    cache: 'no-store',
+  })
+  if (!res.ok) throw new Error(`Failed to fetch comments: ${res.status}`)
+  return res.json()
 }
 
 export function computeSportStats(activities: StravaActivity[]): SportStats[] {

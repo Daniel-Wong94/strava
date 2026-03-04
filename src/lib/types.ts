@@ -55,6 +55,65 @@ export interface SessionData {
   athlete?: StravaAthlete
 }
 
+export interface Split {
+  distance: number
+  elapsed_time: number
+  moving_time: number
+  elevation_difference: number
+  average_speed: number
+  average_heartrate?: number
+  split: number
+}
+
+export interface Lap {
+  id: number
+  name: string
+  lap_index: number
+  distance: number
+  elapsed_time: number
+  moving_time: number
+  total_elevation_gain: number
+  average_speed: number
+  max_speed: number
+  average_heartrate?: number
+}
+
+export interface Gear {
+  id: string
+  name: string
+  distance: number
+}
+
+export interface ActivityPhoto {
+  count: number
+  primary?: { urls: { '600'?: string } }
+}
+
+export interface DetailedActivity extends StravaActivity {
+  map: { summary_polyline: string }
+  splits_metric?: Split[]
+  splits_imperial?: Split[]
+  laps?: Lap[]
+  calories?: number
+  description?: string
+  device_name?: string
+  gear?: Gear
+  photos?: ActivityPhoto
+  comment_count?: number
+}
+
+export interface StravaComment {
+  id: number
+  text: string
+  created_at: string
+  athlete: {
+    id: number
+    firstname: string
+    lastname: string
+    profile_medium: string
+  }
+}
+
 export interface SportStats {
   sport_type: string
   count: number
