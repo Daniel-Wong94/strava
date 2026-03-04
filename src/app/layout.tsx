@@ -3,8 +3,8 @@ import './globals.css'
 import { SettingsProvider } from '@/lib/settings-context'
 
 export const metadata: Metadata = {
-  title: 'Strava Dashboard',
-  description: 'Your Strava activity dashboard — GitHub style',
+  title: 'Fitness Repo',
+  description: 'Your fitness activity dashboard — GitHub style',
 }
 
 const antiFlashScript = `

@@ -1,4 +1,5 @@
 import { ConnectButton } from '@/components/ConnectButton'
+import { FaRunning } from 'react-icons/fa'
 
 export default function LandingPage({
   searchParams,
@@ -11,19 +12,12 @@ export default function LandingPage({
         {/* Logo / Icon */}
         <div className="flex justify-center mb-6">
           <div className="w-20 h-20 bg-[var(--accent)] rounded-2xl flex items-center justify-center shadow-xl">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="white"
-              className="w-12 h-12"
-            >
-              <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.172" />
-            </svg>
+            <FaRunning className="w-12 h-12 text-white" size={48} />
           </div>
         </div>
 
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-3">
-          Strava Dashboard
+          Fitness Repo
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
           Your activity data, visualized like a GitHub profile.
@@ -41,7 +35,7 @@ export default function LandingPage({
         <ConnectButton />
 
         <p className="mt-6 text-xs text-gray-400 dark:text-gray-600">
-          Read-only access · No data stored · All data from Strava API
+          Read-only access · No data stored · Powered by Strava API
         </p>
       </div>
 

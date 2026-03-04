@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  /* ── Default color scheme: orange (Strava) ── */
+  /* ── Default color scheme: orange ── */
   :root {
     --background: #ffffff;
     --foreground: #0d1117;

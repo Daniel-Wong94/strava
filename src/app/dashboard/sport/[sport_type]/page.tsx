@@ -11,6 +11,7 @@ import { HeatmapGrid } from '@/components/HeatmapGrid'
 import { StatsBar } from '@/components/StatsBar'
 import { ActivityFeed } from '@/components/ActivityFeed'
 import { SportBests } from '@/components/SportBests'
+import { FaRunning } from 'react-icons/fa'
 
 interface Props {
   params: { sport_type: string }
@@ -70,16 +71,9 @@ export default async function SportDetailPage({ params }: Props) {
       <header className="border-b border-gray-200 dark:border-[#30363d] bg-white dark:bg-[#161b22]">
         <div className="max-w-screen-xl mx-auto px-4 h-12 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="w-6 h-6 text-[var(--accent)]"
-            >
-              <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.172" />
-            </svg>
+            <FaRunning size={24} className="text-[var(--accent)]" />
             <span className="font-semibold text-gray-900 dark:text-white text-sm">
-              Strava Dashboard
+              Fitness Repo
             </span>
           </div>
           <form action="/api/auth/logout" method="POST">
