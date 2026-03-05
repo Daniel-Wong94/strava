@@ -1,8 +1,14 @@
+'use client'
+
+import { useState } from 'react'
 import Link from 'next/link'
 import { FaRunning } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'
+import { SettingsModal } from './SettingsModal'
 
 export function TopNav() {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
     <header className="border-b border-gray-200 dark:border-[#30363d] bg-white dark:bg-[#161b22]">
       <div className="max-w-screen-xl mx-auto px-4 h-12 flex items-center justify-between">
@@ -13,13 +19,13 @@ export function TopNav() {
           </span>
         </Link>
         <div className="flex items-center gap-3">
-          <Link
-            href="/settings"
-            className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-            title="Settings"
+          <button
+            onClick={() => setIsOpen(true)}
+            className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
           >
             <IoMdSettings size={18} />
-          </Link>
+            <span>Settings</span>
+          </button>
           <form action="/api/auth/logout" method="POST">
             <button
               type="submit"
@@ -30,6 +36,7 @@ export function TopNav() {
           </form>
         </div>
       </div>
+      <SettingsModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </header>
   )
 }

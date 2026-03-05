@@ -77,18 +77,22 @@ const SCHEME_LABELS: Record<ColorScheme, string> = {
   slate: 'Slate',
 }
 
-export function SettingsPanel() {
+export function SettingsPanel({ modal = false }: { modal?: boolean }) {
   const { settings, updateSetting } = useSettings()
 
   return (
     <>
-      <div className="max-w-2xl mx-auto px-4 py-10">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Settings</h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-8">
-          Preferences are saved locally in your browser.
-        </p>
+      <div className={modal ? 'px-6 py-5' : 'max-w-2xl mx-auto px-4 py-10'}>
+        {!modal && (
+          <>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Settings</h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-8">
+              Preferences are saved locally in your browser.
+            </p>
+          </>
+        )}
 
-        <div className="space-y-8">
+        <div className="space-y-5">
           {/* Theme */}
           <div className="p-5 border border-gray-200 dark:border-[#30363d] rounded-lg bg-white dark:bg-[#0d1117]">
             <OptionGroup<Theme>
