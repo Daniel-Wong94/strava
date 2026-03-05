@@ -8,12 +8,12 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 
 const ROUTE_COLORS: Record<ColorScheme, string> = {
   orange: '#f97316',
-  green:  '#22c55e',
-  blue:   '#3b82f6',
+  green: '#22c55e',
+  blue: '#3b82f6',
   purple: '#a855f7',
-  teal:   '#14b8a6',
-  pink:   '#ec4899',
-  slate:  '#64748b',
+  teal: '#14b8a6',
+  pink: '#ec4899',
+  slate: '#64748b',
 }
 
 
@@ -96,11 +96,18 @@ export function ActivityMap({ summaryPolyline }: Props) {
         container: containerRef.current,
         style: resolveStyle(settings.theme),
         attributionControl: false,
+        cooperativeGestures: true,
       })
       mapRef.current = map
 
       map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right')
       map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right')
+
+      // zoom tuning
+      map.scrollZoom.enable({ around: 'center' })
+      map.scrollZoom.setWheelZoomRate(1 / 50)
+      map.scrollZoom.setZoomRate(1 / 50)
+      map.scrollZoom.setWheelZoomRate(1 / 50) // not required
 
       map.on('load', () => {
         remove3DBuildings(mapRef)
