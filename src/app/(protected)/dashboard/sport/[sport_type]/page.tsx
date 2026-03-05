@@ -14,6 +14,7 @@ import { StatsBar } from '@/components/StatsBar'
 import { ActivityFeed } from '@/components/ActivityFeed'
 import { SportBests } from '@/components/SportBests'
 import { GearBar } from '@/components/GearBar'
+import { WorkoutTagsBar } from '@/components/WorkoutTagsBar'
 
 interface Props {
   params: { sport_type: string }
@@ -156,6 +157,7 @@ export default async function SportDetailPage({ params }: Props) {
           </main>
 
           <aside className="lg:w-64 flex-shrink-0 space-y-6">
+            <WorkoutTagsBar activities={activities} sportType={sportType} />
             <GearBar segments={gearSegments} />
             {matchingClubs.length > 0 && (
               <div>
