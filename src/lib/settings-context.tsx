@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState, ReactNode } from 'react
 
 export type Theme = 'light' | 'dark' | 'system'
 export type Units = 'metric' | 'imperial'
-export type ColorScheme = 'orange' | 'green' | 'blue'
+export type ColorScheme = 'orange' | 'green' | 'blue' | 'purple' | 'teal' | 'pink' | 'slate'
 
 export interface Settings {
   theme: Theme
@@ -27,7 +27,7 @@ const STORAGE_KEY = 'strava_prefs'
 
 const SettingsContext = createContext<SettingsContextValue>({
   settings: DEFAULT_SETTINGS,
-  updateSetting: () => {},
+  updateSetting: () => { },
 })
 
 function applyTheme(theme: Theme) {
@@ -55,7 +55,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     try {
       const raw = localStorage.getItem(STORAGE_KEY)
       if (raw) setSettings({ ...DEFAULT_SETTINGS, ...JSON.parse(raw) })
-    } catch {}
+    } catch { }
     setMounted(true)
   }, [])
 
@@ -65,7 +65,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     applyColorScheme(settings.colorScheme)
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(settings))
-    } catch {}
+    } catch { }
   }, [settings, mounted])
 
   function updateSetting<K extends keyof Settings>(key: K, value: Settings[K]) {

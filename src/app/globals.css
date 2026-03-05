@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+
   /* ── Default color scheme: orange ── */
   :root {
     --background: #ffffff;
@@ -59,6 +60,92 @@
     --hm-4: #38bdf8;
   }
 
+  /* ── Purple scheme ── */
+  [data-color-scheme="purple"] {
+    --accent: #8b5cf6;
+    --accent-hover: #7c3aed;
+    --hm-1: #ddd6fe;
+    --hm-2: #a78bfa;
+    --hm-3: #7c3aed;
+    --hm-4: #4c1d95;
+  }
+
+  [data-color-scheme="purple"].dark {
+    --hm-1: #2e1065;
+    --hm-2: #5b21b6;
+    --hm-3: #7c3aed;
+    --hm-4: #a78bfa;
+  }
+
+  /* ── Teal scheme ── */
+  [data-color-scheme="teal"] {
+    --accent: #14b8a6;
+    --accent-hover: #0d9488;
+    --hm-1: #99f6e4;
+    --hm-2: #2dd4bf;
+    --hm-3: #0d9488;
+    --hm-4: #134e4a;
+  }
+
+  [data-color-scheme="teal"].dark {
+    --hm-1: #042f2e;
+    --hm-2: #115e59;
+    --hm-3: #0d9488;
+    --hm-4: #2dd4bf;
+  }
+
+  /* ── Pink scheme ── */
+  [data-color-scheme="pink"] {
+    --accent: #ec4899;
+    --accent-hover: #db2777;
+    --hm-1: #fbcfe8;
+    --hm-2: #f472b6;
+    --hm-3: #db2777;
+    --hm-4: #831843;
+  }
+
+  [data-color-scheme="pink"].dark {
+    --hm-1: #500724;
+    --hm-2: #9d174d;
+    --hm-3: #db2777;
+    --hm-4: #f472b6;
+  }
+
+  /* ── Amber scheme ── */
+  [data-color-scheme="amber"] {
+    --accent: #f59e0b;
+    --accent-hover: #d97706;
+    --hm-1: #fde68a;
+    --hm-2: #fbbf24;
+    --hm-3: #d97706;
+    --hm-4: #78350f;
+  }
+
+  [data-color-scheme="amber"].dark {
+    --hm-1: #451a03;
+    --hm-2: #92400e;
+    --hm-3: #d97706;
+    --hm-4: #fbbf24;
+  }
+
+  /* ── Slate scheme ── */
+  [data-color-scheme="slate"] {
+    --accent: #475569;
+    --accent-hover: #334155;
+    --hm-1: #e2e8f0;
+    --hm-2: #94a3b8;
+    --hm-3: #64748b;
+    --hm-4: #1e293b;
+  }
+
+  [data-color-scheme="slate"].dark {
+    --hm-1: #1e293b;
+    --hm-2: #334155;
+    --hm-3: #64748b;
+    --hm-4: #cbd5f5;
+  }
+
+
   body {
     @apply bg-white dark:bg-[#0d1117] text-gray-900 dark:text-[#e6edf3];
   }
@@ -68,15 +155,19 @@
   .heatmap-0 {
     @apply bg-[#ebedf0] dark:bg-[#161b22];
   }
+
   .heatmap-1 {
     background-color: var(--hm-1);
   }
+
   .heatmap-2 {
     background-color: var(--hm-2);
   }
+
   .heatmap-3 {
     background-color: var(--hm-3);
   }
+
   .heatmap-4 {
     background-color: var(--hm-4);
   }

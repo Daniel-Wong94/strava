@@ -6,6 +6,7 @@ import { useSettings } from '@/lib/settings-context'
 import type { Theme } from '@/lib/settings-context'
 import 'maplibre-gl/dist/maplibre-gl.css'
 
+
 const STYLE_DARK = 'https://tiles.openfreemap.org/styles/dark'
 const STYLE_LIGHT = 'https://tiles.openfreemap.org/styles/liberty'
 
@@ -13,6 +14,19 @@ function resolveStyle(theme: Theme): string {
   if (theme === 'dark') return STYLE_DARK
   if (theme === 'light') return STYLE_LIGHT
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? STYLE_DARK : STYLE_LIGHT
+}
+
+function remove3DBuildings(mapRef: React.MutableRefObject<any>) {
+  const map = mapRef.current
+  if (!map) return
+
+  const layers = map.getStyle().layers || []
+
+  layers.forEach((layer: any) => {
+    if (layer.type === 'fill-extrusion') {
+      map.removeLayer(layer.id)
+    }
+  })
 }
 
 interface Props {
@@ -77,6 +91,8 @@ export function ActivityMap({ summaryPolyline }: Props) {
       map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right')
 
       map.on('load', () => {
+        remove3DBuildings(mapRef)
+
         const lngs = lngLat.map(([lng]) => lng)
         const lats = lngLat.map(([, lat]) => lat)
         map.fitBounds(
@@ -84,8 +100,6 @@ export function ActivityMap({ summaryPolyline }: Props) {
           { padding: 48, animate: false }
         )
 
-        // zoom out a bit from the fitted route (user can still zoom in as much as they want)
-        map.zoomTo(map.getZoom() - 1, { animate: false })
         addRouteLayers()
 
         new maplibregl.Marker({ color: '#22c55e', scale: 0.7 }).setLngLat(lngLat[0]).addTo(map)
