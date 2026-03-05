@@ -46,6 +46,7 @@ export interface StravaActivity {
   achievement_count?: number
   gear_id?: string
   workout_type?: number
+  total_photo_count?: number
 }
 
 export interface StravaClub {
