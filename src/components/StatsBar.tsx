@@ -139,14 +139,14 @@ export function StatsBar({ activities, sportMode, totalDistance, totalElevation 
 
   return (
     <div>
-      <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
-        Lifetime stats
+      <h2 className="text-md font-semibold text-gray-900 dark:text-white mb-3">
+        Lifetime Stats
       </h2>
       <div className="grid grid-cols-5 grid-rows-2 gap-3">
         {typedStats.map((stat) => (
           <div
             key={stat.label}
-            className="flex flex-col items-center px-4 py-3 bg-gray-50 dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-lg"
+            className="flex flex-col justify-between items-center px-4 py-3 bg-gray-50 dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-lg"
           >
             <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400 mb-1">
               {stat.icon}
