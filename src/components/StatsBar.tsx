@@ -7,6 +7,7 @@ import { useSettings } from '@/lib/settings-context'
 import { ElevationModal } from './ElevationModal'
 import { DistanceModal } from './DistanceModal'
 import { KudosModal } from './KudosModal'
+import { TimeModal } from './TimeModal'
 
 interface Props {
   activities: StravaActivity[]
@@ -22,6 +23,7 @@ export function StatsBar({ activities, sportMode, totalDistance, totalElevation 
   const [elevationOpen, setElevationOpen] = useState(false)
   const [distanceOpen, setDistanceOpen] = useState(false)
   const [kudosOpen, setKudosOpen] = useState(false)
+  const [timeOpen, setTimeOpen] = useState(false)
 
   const totalKudos = activities.reduce((sum, a) => sum + (a.kudos_count || 0), 0)
   const sportTypes = new Set(activities.map((a) => a.sport_type)).size
@@ -106,6 +108,7 @@ export function StatsBar({ activities, sportMode, totalDistance, totalElevation 
         label: 'Total Time',
         value: fmtTotalTime(lifetimeMovingTime),
         icon: <span className="text-sm">⏱️</span>,
+        onClick: () => setTimeOpen(true),
       },
       {
         label: 'Total Elevation',
@@ -197,6 +200,11 @@ export function StatsBar({ activities, sportMode, totalDistance, totalElevation 
       <KudosModal
         isOpen={kudosOpen}
         onClose={() => setKudosOpen(false)}
+        activities={activities}
+      />
+      <TimeModal
+        isOpen={timeOpen}
+        onClose={() => setTimeOpen(false)}
         activities={activities}
       />
     </div>
