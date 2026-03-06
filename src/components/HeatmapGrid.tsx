@@ -115,12 +115,12 @@ export function HeatmapGrid({ activities, createdYear }: Props) {
         <div className="inline-block">
           {/* Month labels */}
           <div className="flex mb-1 ml-8">
-            <div style={{ height: '16px', width: `${weeks.length * 14}px` }} className="relative overflow-hidden">
+            <div style={{ height: '16px', width: `${weeks.length * 13}px` }} className="relative overflow-hidden">
               {monthLabels.map(({ weekIndex, label }) => (
                 <span
                   key={`${weekIndex}-${label}`}
                   className="text-xs text-gray-500 dark:text-gray-400 absolute"
-                  style={{ left: `${weekIndex * 14}px` }}
+                  style={{ left: `${weekIndex * 13}px` }}
                 >
                   {label}
                 </span>
