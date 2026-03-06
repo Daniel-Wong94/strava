@@ -6,6 +6,7 @@ import { computeStreak, computeBestStreak } from '@/lib/strava'
 import { useSettings } from '@/lib/settings-context'
 import { ElevationModal } from './ElevationModal'
 import { DistanceModal } from './DistanceModal'
+import { KudosModal } from './KudosModal'
 
 interface Props {
   activities: StravaActivity[]
@@ -20,6 +21,7 @@ export function StatsBar({ activities, sportMode, totalDistance, totalElevation 
   const { units } = settings
   const [elevationOpen, setElevationOpen] = useState(false)
   const [distanceOpen, setDistanceOpen] = useState(false)
+  const [kudosOpen, setKudosOpen] = useState(false)
 
   const totalKudos = activities.reduce((sum, a) => sum + (a.kudos_count || 0), 0)
   const sportTypes = new Set(activities.map((a) => a.sport_type)).size
@@ -119,6 +121,7 @@ export function StatsBar({ activities, sportMode, totalDistance, totalElevation 
             <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z" />
           </svg>
         ),
+        onClick: () => setKudosOpen(true),
       },
       {
         label: 'Sport Types',
@@ -189,6 +192,11 @@ export function StatsBar({ activities, sportMode, totalDistance, totalElevation 
       <DistanceModal
         isOpen={distanceOpen}
         onClose={() => setDistanceOpen(false)}
+        activities={activities}
+      />
+      <KudosModal
+        isOpen={kudosOpen}
+        onClose={() => setKudosOpen(false)}
         activities={activities}
       />
     </div>
