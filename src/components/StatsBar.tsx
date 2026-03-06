@@ -158,7 +158,7 @@ export function StatsBar({ activities, sportMode, totalDistance, totalElevation 
       <h2 className="text-md font-semibold text-gray-900 dark:text-white mb-3">
         Lifetime Stats
       </h2>
-      <div className="grid grid-cols-5 grid-rows-2 gap-3">
+      <div className="grid grid-cols-5 gap-3">
         {typedStats.map((stat) =>
           stat.onClick ? (
             <button
