@@ -42,8 +42,7 @@ export default async function ClubDetailPage({ params }: Props) {
           </Link>
           <span className="text-gray-400 dark:text-gray-600 mx-1">/</span>
           <span className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-            <span>🪩</span>
-            {club.name}
+            🪩 {club.name}
           </span>
         </nav>
 

@@ -184,15 +184,7 @@ async function ClubsSection({ token }: { token: string }) {
   return (
     <div className="mt-6">
       <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-1.5">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 16"
-          fill="currentColor"
-          className="w-4 h-4"
-        >
-          <path d="M14.5 6c0 4.833-5.052 8.664-6.034 9.329a1 1 0 0 1-1.932 0C5.552 14.664.5 10.833.5 6a7 7 0 0 1 14 0Z" />
-        </svg>
-        Clubs
+        🪩 Clubs
       </h2>
       <ClubsList clubs={clubs} />
     </div>
