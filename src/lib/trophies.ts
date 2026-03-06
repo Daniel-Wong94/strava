@@ -90,7 +90,7 @@ export function computeTrophies(activities: StravaActivity[]): Trophy[] {
 
   // Marathon That Wasn't: distance in [41842, 42195) meters
   const marathonThatWasntMatch = activities.find(
-    (a) => a.distance >= 41842 && a.distance < 42195
+    (a) => a.distance >= 41842 && a.distance < 42195 && a.sport_type === 'Run'
   )
   if (marathonThatWasntMatch) log("Marathon That Wasn't", { id: marathonThatWasntMatch.id, name: marathonThatWasntMatch.name, distance_m: marathonThatWasntMatch.distance, distance_mi: (marathonThatWasntMatch.distance / 1609.34).toFixed(2) })
 
