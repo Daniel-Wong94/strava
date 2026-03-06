@@ -15,6 +15,40 @@ import { useSettings } from '@/lib/settings-context'
 
 const PAGE_SIZE = 10
 
+const SPORT_COLORS: Record<string, string> = {
+  Run:              'border-blue-300   bg-blue-50   text-blue-700   dark:border-blue-700   dark:bg-blue-950/40   dark:text-blue-300',
+  TrailRun:         'border-blue-400   bg-blue-50   text-blue-800   dark:border-blue-600   dark:bg-blue-950/40   dark:text-blue-300',
+  Ride:             'border-green-300  bg-green-50  text-green-700  dark:border-green-700  dark:bg-green-950/40  dark:text-green-300',
+  MountainBikeRide: 'border-green-400  bg-green-50  text-green-800  dark:border-green-600  dark:bg-green-950/40  dark:text-green-300',
+  GravelRide:       'border-lime-300   bg-lime-50   text-lime-700   dark:border-lime-700   dark:bg-lime-950/40   dark:text-lime-300',
+  VirtualRide:      'border-teal-300   bg-teal-50   text-teal-700   dark:border-teal-700   dark:bg-teal-950/40   dark:text-teal-300',
+  Swim:             'border-cyan-300   bg-cyan-50   text-cyan-700   dark:border-cyan-700   dark:bg-cyan-950/40   dark:text-cyan-300',
+  Walk:             'border-yellow-300 bg-yellow-50 text-yellow-700 dark:border-yellow-700 dark:bg-yellow-950/40 dark:text-yellow-300',
+  Hike:             'border-orange-300 bg-orange-50 text-orange-700 dark:border-orange-700 dark:bg-orange-950/40 dark:text-orange-300',
+  WeightTraining:   'border-purple-300 bg-purple-50 text-purple-700 dark:border-purple-700 dark:bg-purple-950/40 dark:text-purple-300',
+  Workout:          'border-purple-300 bg-purple-50 text-purple-700 dark:border-purple-700 dark:bg-purple-950/40 dark:text-purple-300',
+  Yoga:             'border-pink-300   bg-pink-50   text-pink-700   dark:border-pink-700   dark:bg-pink-950/40   dark:text-pink-300',
+  Crossfit:         'border-red-300    bg-red-50    text-red-700    dark:border-red-700    dark:bg-red-950/40    dark:text-red-300',
+  Soccer:           'border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300',
+  Tennis:           'border-lime-300   bg-lime-50   text-lime-700   dark:border-lime-700   dark:bg-lime-950/40   dark:text-lime-300',
+  Skiing:           'border-sky-300    bg-sky-50    text-sky-700    dark:border-sky-700    dark:bg-sky-950/40    dark:text-sky-300',
+  NordicSki:        'border-sky-300    bg-sky-50    text-sky-700    dark:border-sky-700    dark:bg-sky-950/40    dark:text-sky-300',
+  Snowboard:        'border-indigo-300 bg-indigo-50 text-indigo-700 dark:border-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300',
+  Kayaking:         'border-teal-300   bg-teal-50   text-teal-700   dark:border-teal-700   dark:bg-teal-950/40   dark:text-teal-300',
+  Rowing:           'border-cyan-300   bg-cyan-50   text-cyan-700   dark:border-cyan-700   dark:bg-cyan-950/40   dark:text-cyan-300',
+}
+
+const DEFAULT_SPORT_COLOR = 'border-gray-300 bg-gray-50 text-gray-600 dark:border-gray-600 dark:bg-gray-800/40 dark:text-gray-400'
+
+function SportLabel({ sport }: { sport: string }) {
+  const colors = SPORT_COLORS[sport] ?? DEFAULT_SPORT_COLOR
+  return (
+    <span className={`inline-flex items-center px-1.5 py-0.5 rounded border text-xs font-medium leading-none ${colors}`}>
+      {getSportLabel(sport)}
+    </span>
+  )
+}
+
 interface Props {
   activities: StravaActivity[]
 }
@@ -58,14 +92,12 @@ export function ActivityFeed({ activities }: Props) {
                   <span className="font-medium text-gray-900 dark:text-[#e6edf3] text-sm truncate">
                     {activity.name}
                   </span>
+                  <SportLabel sport={activity.sport_type} />
                   <ActivityBadge visibility={activity.visibility} />
                 </div>
 
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1 text-xs text-gray-500 dark:text-[#8b949e]">
-                  <span className="text-gray-400 dark:text-[#8b949e]">
-                    {getSportLabel(activity.sport_type)}
-                  </span>
-                  <span>·</span>
+
                   <time dateTime={activity.start_date_local}>
                     {formatDate(activity.start_date_local)}
                   </time>
