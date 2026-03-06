@@ -16,6 +16,7 @@ import { ActivityFeed } from '@/components/ActivityFeed'
 import { SportBests } from '@/components/SportBests'
 import { GearBar } from '@/components/GearBar'
 import { WorkoutTagsBar } from '@/components/WorkoutTagsBar'
+import { MarathonCompareSection } from '@/components/MarathonCompareSection'
 
 interface Props {
   params: { sport_type: string }
@@ -147,6 +148,11 @@ export default async function SportDetailPage({ params }: Props) {
               mostElevationActivity={mostElevationActivity}
               isPaceSport={isPaceSport}
             />
+
+            {/* Marathon compare (Run only) */}
+            {sportType === 'Run' && (
+              <MarathonCompareSection activities={activities} />
+            )}
 
             {/* Full activity feed */}
             <div className="mt-8">
