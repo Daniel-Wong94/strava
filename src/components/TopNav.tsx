@@ -3,11 +3,13 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { FaRunning } from 'react-icons/fa'
-import { IoMdSettings } from 'react-icons/io'
+import { IoMdSettings, IoMdInformationCircleOutline } from 'react-icons/io'
 import { SettingsModal } from './SettingsModal'
+import { InfoModal } from './InfoModal'
 
 export function TopNav() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [infoOpen, setInfoOpen] = useState(false)
 
   return (
     <header className="border-b border-gray-200 dark:border-[#30363d] bg-white dark:bg-[#161b22]">
@@ -20,7 +22,15 @@ export function TopNav() {
         </Link>
         <div className="flex items-center gap-3">
           <button
-            onClick={() => setIsOpen(true)}
+            onClick={() => setInfoOpen(true)}
+            className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+            aria-label="About"
+          >
+            <IoMdInformationCircleOutline size={18} />
+            <span>About</span>
+          </button>
+          <button
+            onClick={() => setSettingsOpen(true)}
             className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
           >
             <IoMdSettings size={18} />
@@ -36,7 +46,8 @@ export function TopNav() {
           </form>
         </div>
       </div>
-      <SettingsModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <SettingsModal isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} />
+      <InfoModal isOpen={infoOpen} onClose={() => setInfoOpen(false)} />
     </header>
   )
 }
