@@ -210,7 +210,15 @@ export function MilestoneModal({
                         stroke="var(--accent)"
                         strokeWidth={2}
                         dot={{ r: 4, fill: 'var(--accent)', strokeWidth: 0 }}
-                        activeDot={{ r: 5, style: { outline: 'none' } }}
+                        activeDot={(props: { cx?: number; cy?: number }) => {
+                          const { cx = 0, cy = 0 } = props
+                          return (
+                            <g>
+                              <circle cx={cx} cy={cy} r={16} fill="transparent" />
+                              <circle cx={cx} cy={cy} r={5} fill="var(--accent)" style={{ outline: 'none' }} />
+                            </g>
+                          )
+                        }}
                       />
                     </LineChart>
                   </div>
