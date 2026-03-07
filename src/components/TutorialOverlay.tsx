@@ -58,6 +58,18 @@ const TOUR_STEPS: TourStep[] = [
 const PADDING = 6
 const TOOLTIP_WIDTH = 288
 
+// Module-level flag so TutorialOverlay can check readiness even if the
+// dashboard-ready event fired before its own useEffect ran.
+let _dashboardReady = false
+
+export function DashboardReadySignal() {
+  useEffect(() => {
+    _dashboardReady = true
+    window.dispatchEvent(new CustomEvent('dashboard-ready'))
+  }, [])
+  return null
+}
+
 function getTooltipStyle(
   rect: DOMRect,
   placement: TourStep['placement'],
@@ -105,10 +117,19 @@ export function TutorialOverlay() {
     }, 300)
   }, [])
 
-  // On mount: check localStorage
+  // On mount: wait for dashboard data to load, then check localStorage
   useEffect(() => {
     const seen = localStorage.getItem('strava_tutorial_seen')
-    if (seen !== 'true') setVisible(true)
+
+    function maybeStart() {
+      if (seen !== 'true') setVisible(true)
+    }
+
+    if (_dashboardReady) {
+      maybeStart()
+    } else {
+      window.addEventListener('dashboard-ready', maybeStart, { once: true })
+    }
 
     function handleStartTutorial() {
       setStep(0)
@@ -117,7 +138,11 @@ export function TutorialOverlay() {
       setTourKey((k) => k + 1)
     }
     window.addEventListener('start-tutorial', handleStartTutorial)
-    return () => window.removeEventListener('start-tutorial', handleStartTutorial)
+
+    return () => {
+      window.removeEventListener('dashboard-ready', maybeStart)
+      window.removeEventListener('start-tutorial', handleStartTutorial)
+    }
   }, [])
 
   // Re-measure on step change or tour restart
