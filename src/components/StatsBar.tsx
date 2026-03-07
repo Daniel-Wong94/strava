@@ -4,11 +4,11 @@ import { useState } from 'react'
 import type { StravaActivity, AthleteStats } from '@/lib/types'
 import { computeStreak, computeBestStreak } from '@/lib/strava'
 import { useSettings } from '@/lib/settings-context'
-import { ElevationModal } from './ElevationModal'
-import { DistanceModal } from './DistanceModal'
-import { KudosModal } from './KudosModal'
-import { TimeModal } from './TimeModal'
-import { ActivitiesModal } from './ActivitiesModal'
+import { ElevationModal } from './modal/ElevationModal'
+import { DistanceModal } from './modal/DistanceModal'
+import { KudosModal } from './modal/KudosModal'
+import { TimeModal } from './modal/TimeModal'
+import { ActivitiesModal } from './modal/ActivitiesModal'
 import {
   BookOpen,
   Ruler,

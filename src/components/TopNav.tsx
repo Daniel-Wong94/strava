@@ -5,9 +5,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { Activity, Settings, Info, Lock, HelpCircle, User } from 'lucide-react'
-import { SettingsModal } from './SettingsModal'
-import { InfoModal } from './InfoModal'
-import { PrivacyModal } from './PrivacyModal'
+import { SettingsModal } from './modal/SettingsModal'
+import { InfoModal } from './modal/InfoModal'
+import { PrivacyModal } from './modal/PrivacyModal'
 import type { StravaAthlete } from '@/lib/types'
 
 interface TopNavProps {

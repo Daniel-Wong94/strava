@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import type { StravaActivity } from '@/lib/types'
-import { MarathonCompareModal } from './MarathonCompareModal'
+import { MarathonCompareModal } from './modal/MarathonCompareModal'
 import { Award } from 'lucide-react'
 
 export function MarathonCompareSection({ activities }: { activities: StravaActivity[] }) {
