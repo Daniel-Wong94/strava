@@ -7,6 +7,7 @@ import { getSessionWithRefresh } from '@/lib/auth'
 import {
   fetchAthlete,
   fetchAllActivities,
+  fetchAthleteStats,
   fetchClubs,
   computeSportStats,
 } from '@/lib/strava'
@@ -25,6 +26,7 @@ import { User, MapPin, Users2 } from 'lucide-react'
 const cachedFetchAthlete = cache(fetchAthlete)
 const cachedFetchClubs = cache(fetchClubs)
 const cachedFetchAllActivities = cache(fetchAllActivities)
+const cachedFetchAthleteStats = cache(fetchAthleteStats)
 
 function toXL(url: string): string {
   return url.replace('large.jpg', 'xl.jpg')
@@ -184,9 +186,10 @@ async function ClubsSection({ token }: { token: string }) {
 }
 
 async function MainContent({ token }: { token: string }) {
-  const [athlete, activities] = await Promise.all([
-    cachedFetchAthlete(token),
+  const athlete = await cachedFetchAthlete(token)
+  const [activities, athleteStats] = await Promise.all([
     cachedFetchAllActivities(token),
+    cachedFetchAthleteStats(token, athlete.id),
   ])
 
   const createdYear = athlete.created_at
@@ -201,7 +204,7 @@ async function MainContent({ token }: { token: string }) {
   return (
     <>
       <div data-tour="lifetime-stats">
-        <StatsBar activities={activities} />
+        <StatsBar activities={activities} athleteStats={athleteStats} />
       </div>
 
       <div data-tour="heatmap" className="mt-6 p-4 border border-gray-200 dark:border-[#30363d] rounded-lg bg-white dark:bg-[#0d1117]">
@@ -261,6 +264,7 @@ export default async function DashboardPage() {
 
   // Start all fetches in parallel. React.cache deduplicates so each
   // async RSC below gets the same in-flight promise when it calls its fetch.
+  // Note: athleteStats pre-warm requires athlete.id, so it starts inside MainContent.
   cachedFetchAthlete(token)
   if (CLUBS_ENABLED) cachedFetchClubs(token)
   cachedFetchAllActivities(token)

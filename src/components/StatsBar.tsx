@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import type { StravaActivity } from '@/lib/types'
+import type { StravaActivity, AthleteStats } from '@/lib/types'
 import { computeStreak, computeBestStreak } from '@/lib/strava'
 import { useSettings } from '@/lib/settings-context'
 import { ElevationModal } from './ElevationModal'
@@ -26,9 +26,10 @@ interface Props {
   sportMode?: boolean
   totalDistance?: number
   totalElevation?: number
+  athleteStats?: AthleteStats
 }
 
-export function StatsBar({ activities, sportMode, totalDistance, totalElevation }: Props) {
+export function StatsBar({ activities, sportMode, totalDistance, totalElevation, athleteStats }: Props) {
   const { settings } = useSettings()
   const { units } = settings
   const [elevationOpen, setElevationOpen] = useState(false)
@@ -41,9 +42,15 @@ export function StatsBar({ activities, sportMode, totalDistance, totalElevation 
   const sportTypes = new Set(activities.map((a) => a.sport_type)).size
   const streak = computeStreak(activities)
   const bestStreak = computeBestStreak(activities)
-  const lifetimeDistance = activities.reduce((s, a) => s + a.distance, 0)
-  const lifetimeMovingTime = activities.reduce((s, a) => s + a.moving_time, 0)
-  const lifetimeElevation = activities.reduce((s, a) => s + a.total_elevation_gain, 0)
+  const lifetimeDistance = athleteStats
+    ? athleteStats.all_run_totals.distance + athleteStats.all_ride_totals.distance + athleteStats.all_swim_totals.distance
+    : activities.reduce((s, a) => s + a.distance, 0)
+  const lifetimeMovingTime = athleteStats
+    ? athleteStats.all_run_totals.moving_time + athleteStats.all_ride_totals.moving_time + athleteStats.all_swim_totals.moving_time
+    : activities.reduce((s, a) => s + a.moving_time, 0)
+  const lifetimeElevation = athleteStats
+    ? athleteStats.all_run_totals.elevation_gain + athleteStats.all_ride_totals.elevation_gain + athleteStats.all_swim_totals.elevation_gain
+    : activities.reduce((s, a) => s + a.total_elevation_gain, 0)
   const totalAchievements = activities.reduce((s, a) => s + (a.achievement_count ?? 0), 0)
 
   function fmtDistance(meters: number) {
@@ -150,7 +157,7 @@ export function StatsBar({ activities, sportMode, totalDistance, totalElevation 
   return (
     <div>
       <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
-        Lifetime Stats
+        {athleteStats && !sportMode ? 'Lifetime Stats (Run / Ride / Swim)' : 'Lifetime Stats'}
       </h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
         {typedStats.map((stat) =>

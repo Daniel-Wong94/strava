@@ -1,4 +1,4 @@
-import type { StravaActivity, StravaAthlete, StravaClub, ClubActivity, ClubMember, SportStats, DetailedActivity, StravaComment, ActivityPhotoItem } from './types'
+import type { StravaActivity, StravaAthlete, StravaClub, ClubActivity, ClubMember, SportStats, DetailedActivity, StravaComment, ActivityPhotoItem, AthleteStats } from './types'
 
 export type Units = 'metric' | 'imperial'
 
@@ -15,6 +15,15 @@ export async function fetchAthlete(accessToken: string): Promise<StravaAthlete> 
     console.error('Failed to fetch athlete:', await res.statusText)
     throw new Error(`Failed to fetch athlete: ${res.status}`)
   }
+  return res.json()
+}
+
+export async function fetchAthleteStats(token: string, athleteId: number): Promise<AthleteStats> {
+  const res = await fetch(`${STRAVA_API}/athletes/${athleteId}/stats`, {
+    headers: { Authorization: `Bearer ${token}` },
+    next: { revalidate: 3600 }, // 1 hour — cumulative totals change rarely
+  })
+  if (!res.ok) throw new Error(`Failed to fetch athlete stats: ${res.status}`)
   return res.json()
 }
 
