@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { SettingsProvider } from '@/lib/settings-context'
+import { KeyboardShortcuts } from '@/components/KeyboardShortcuts'
 
 export const metadata: Metadata = {
   title: 'Fitness Repo',
@@ -31,6 +32,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-white dark:bg-[#0d1117] antialiased">
         <SettingsProvider>
+          <KeyboardShortcuts />
           {children}
         </SettingsProvider>
       </body>
