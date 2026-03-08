@@ -1,5 +1,6 @@
 import { ConnectButton } from '@/components/ConnectButton'
 import { GitFitLogo } from '@/components/GitFitLogo'
+import { CyclingWord } from '@/components/CyclingWord'
 import { LayoutGrid, Award, Flame, Github, Linkedin } from 'lucide-react'
 
 const FEATURES = [
@@ -48,11 +49,11 @@ export default function LandingPage({
 
             <h1 className="animate-fade-up text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6" style={{ animationDelay: '80ms' }}>
               Your fitness,<br />
-              <span className="text-[#FC4C02]">visualized.</span>
+              <CyclingWord />
             </h1>
 
             <p className="animate-fade-up text-lg text-gray-400 leading-relaxed mb-10 max-w-md" style={{ animationDelay: '160ms' }}>
-              A GitHub-style dashboard for your Strava activities. Heatmaps, streaks, sport cards, and lifetime stats — all in one place.
+              A GitHub-style dashboard for your Strava activities. Read-only access. No data stored.
             </p>
 
             {searchParams.error && (
@@ -66,9 +67,6 @@ export default function LandingPage({
             <div className="animate-fade-up flex items-center gap-4 flex-wrap" style={{ animationDelay: '240ms' }}>
               <ConnectButton />
             </div>
-            <p className="animate-fade-up mt-5 text-xs text-gray-600" style={{ animationDelay: '300ms' }}>
-              Read-only access · No data stored
-            </p>
 
             <p className="mt-4 text-sm text-gray-500">
               Don&apos;t have Strava?{' '}
@@ -84,7 +82,7 @@ export default function LandingPage({
             {FEATURES.map(({ icon, title, desc }, i) => (
               <div
                 key={title}
-                className="animate-fade-up flex items-start gap-4 p-5 rounded-xl bg-white/5 border border-white/8 hover:border-[#FC4C02]/40 hover:bg-white/8 transition-colors"
+                className="animate-fade-up flex items-start gap-4 p-5 rounded-xl bg-white/5 border border-white/8"
                 style={{ animationDelay: `${200 + i * 100}ms` }}
               >
                 <div className="mt-0.5 shrink-0 w-8 h-8 rounded-md bg-[#FC4C02]/10 flex items-center justify-center">
