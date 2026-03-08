@@ -53,25 +53,6 @@ export function TopNav({ athlete, sticky = true }: TopNavProps) {
 
         {/* Right: icon buttons + avatar */}
         <div className="flex items-center gap-0.5">
-          {isDashboard && (
-            <button
-              onClick={startTutorial}
-              className="p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#21262d] transition-colors"
-              aria-label="Start tour"
-              title="Start tour"
-            >
-              <HelpCircle size={18} />
-            </button>
-          )}
-
-          <button
-            onClick={() => setPrivacyOpen(true)}
-            className="p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#21262d] transition-colors"
-            aria-label="Privacy policy"
-          >
-            <Lock size={18} />
-          </button>
-
           <button
             onClick={() => setInfoOpen(true)}
             className="p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#21262d] transition-colors"
@@ -127,6 +108,23 @@ export function TopNav({ athlete, sticky = true }: TopNavProps) {
                   </div>
                 )}
                 <div className="py-1">
+                  {isDashboard && (
+                    <button
+                      onClick={() => { setMenuOpen(false); startTutorial() }}
+                      className="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#21262d] transition-colors"
+                    >
+                      <HelpCircle size={14} />
+                      Start tour
+                    </button>
+                  )}
+                  <button
+                    onClick={() => { setMenuOpen(false); setPrivacyOpen(true) }}
+                    className="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#21262d] transition-colors"
+                  >
+                    <Lock size={14} />
+                    Privacy policy
+                  </button>
+                  <div className="my-1 border-t border-gray-200 dark:border-[#30363d]" />
                   <form action="/api/auth/logout" method="POST">
                     <button
                       type="submit"

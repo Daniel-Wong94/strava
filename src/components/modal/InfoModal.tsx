@@ -63,6 +63,10 @@ export function InfoModal({ isOpen, onClose }: InfoModalProps) {
           <p>
             Built with Next.js, Tailwind CSS, and powered by Strava.
           </p>
+
+          <p>
+            Find GitFit useful or fun? Consider supporting the project :)
+          </p>
         </div>
 
         {/* Footer */}
