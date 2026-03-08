@@ -193,7 +193,7 @@ export function HeatmapGrid({ activities, createdYear }: Props) {
 
       {/* Year selector */}
       {years.length > 1 && (
-        <div className="flex flex-col shrink-0 overflow-y-auto">
+        <div className="flex flex-col shrink-0 overflow-y-auto max-h-[130px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {years.map((year) => (
             <button
               key={year}
