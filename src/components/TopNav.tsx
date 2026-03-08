@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { GitFitLogo } from '@/components/GitFitLogo'
 import { Settings, Info, Lock, HelpCircle, User } from 'lucide-react'
 import { SettingsModal } from './modal/SettingsModal'
 import { InfoModal } from './modal/InfoModal'
@@ -45,8 +46,8 @@ export function TopNav({ athlete }: TopNavProps) {
 
         {/* Left: logo */}
         <Link href="/dashboard" className="shrink-0">
-          <Image src="/gitfit-logo-light.svg" alt="GitFit" width={86} height={22} className="block dark:hidden" priority />
-          <Image src="/gitfit-logo.svg" alt="GitFit" width={86} height={22} className="hidden dark:block" priority />
+          <span className="block dark:hidden"><GitFitLogo width={86} variant="light" /></span>
+          <span className="hidden dark:block"><GitFitLogo width={86} variant="dark" /></span>
         </Link>
 
         {/* Right: icon buttons + avatar */}

@@ -2,9 +2,9 @@ import Image from 'next/image'
 import { Github, Linkedin } from 'lucide-react'
 
 const LINKS = {
-  linkedin:      'https://www.linkedin.com/in/daniel-kachun-wong/',
-  github:        'https://github.com/Daniel-Wong94',
-  projectGithub: 'https://github.com/Daniel-Wong94/fitness-repo',
+  linkedin: 'https://www.linkedin.com/in/daniel-kachun-wong/',
+  github: 'https://github.com/Daniel-Wong94',
+  projectGithub: 'https://github.com/Daniel-Wong94/GitFit',
 }
 
 export function Footer() {

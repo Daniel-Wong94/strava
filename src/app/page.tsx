@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import { ConnectButton } from '@/components/ConnectButton'
+import { GitFitLogo } from '@/components/GitFitLogo'
 import { LayoutGrid, Award, Flame } from 'lucide-react'
 
 // Landing page is always light mode + green accent, regardless of user settings.
@@ -23,7 +23,7 @@ export default function LandingPage({
       <div className="text-center max-w-md w-full">
         {/* Logo */}
         <div className="flex justify-center mb-8">
-          <Image src="/gitfit-logo-light.svg" alt="GitFit" width={200} height={51} priority />
+          <GitFitLogo width={200} variant="light" />
         </div>
 
         <p className="text-lg text-gray-600 mb-8">
