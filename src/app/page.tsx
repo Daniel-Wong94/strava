@@ -30,7 +30,7 @@ export default function LandingPage({
     <div className="min-h-screen bg-[#0d1117] text-white flex flex-col">
 
       {/* Nav */}
-      <header className="flex items-center justify-between px-8 py-5 max-w-screen-xl mx-auto w-full">
+      <header className="animate-fade-in flex items-center justify-between px-8 py-5 max-w-screen-xl mx-auto w-full" style={{ animationDelay: '0ms' }}>
         <GitFitLogo width={110} variant="dark" />
         <div className="flex items-center gap-3">
           <a
@@ -60,17 +60,17 @@ export default function LandingPage({
 
           {/* Left */}
           <div>
-            <div className="inline-flex items-center gap-2 border border-white/15 rounded-full px-3 py-1 text-xs text-gray-400 mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FC4C02]" />
+            <div className="animate-fade-up inline-flex items-center gap-2 border border-white/15 rounded-full px-3 py-1 text-xs text-gray-400 mb-8" style={{ animationDelay: '0ms' }}>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FC4C02] animate-glow-pulse" />
               Powered by Strava
             </div>
 
-            <h1 className="text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6">
+            <h1 className="animate-fade-up text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6" style={{ animationDelay: '80ms' }}>
               Your fitness,<br />
               <span className="text-[#FC4C02]">visualized.</span>
             </h1>
 
-            <p className="text-lg text-gray-400 leading-relaxed mb-10 max-w-md">
+            <p className="animate-fade-up text-lg text-gray-400 leading-relaxed mb-10 max-w-md" style={{ animationDelay: '160ms' }}>
               A GitHub-style dashboard for your Strava activities. Heatmaps, streaks, sport cards, and lifetime stats — all in one place.
             </p>
 
@@ -82,21 +82,22 @@ export default function LandingPage({
               </div>
             )}
 
-            <div className="flex items-center gap-4 flex-wrap">
+            <div className="animate-fade-up flex items-center gap-4 flex-wrap" style={{ animationDelay: '240ms' }}>
               <ConnectButton />
             </div>
 
-            <p className="mt-5 text-xs text-gray-600">
+            <p className="animate-fade-up mt-5 text-xs text-gray-600" style={{ animationDelay: '300ms' }}>
               Read-only access · No data stored
             </p>
           </div>
 
           {/* Right — feature cards */}
           <div className="flex flex-col gap-4">
-            {FEATURES.map(({ icon, title, desc }) => (
+            {FEATURES.map(({ icon, title, desc }, i) => (
               <div
                 key={title}
-                className="flex items-start gap-4 p-5 rounded-xl bg-white/5 border border-white/8 hover:border-[#FC4C02]/40 hover:bg-white/8 transition-colors"
+                className="animate-fade-up flex items-start gap-4 p-5 rounded-xl bg-white/5 border border-white/8 hover:border-[#FC4C02]/40 hover:bg-white/8 transition-colors"
+                style={{ animationDelay: `${200 + i * 100}ms` }}
               >
                 <div className="mt-0.5 shrink-0 w-8 h-8 rounded-md bg-[#FC4C02]/10 flex items-center justify-center">
                   {icon}
