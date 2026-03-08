@@ -32,8 +32,8 @@ export default function LandingPage({
       <header className="animate-fade-in flex items-center justify-between px-8 py-5 max-w-screen-xl mx-auto w-full" style={{ animationDelay: '0ms' }}>
         <GitFitLogo width={110} variant="dark" />
 
-        <div className="animate-fade-up inline-flex items-center gap-2 border border-white/15 rounded-full px-3 py-1 text-xs text-gray-400 mb-8" style={{ animationDelay: '0ms' }}>
-          <span className="w-1.5 h-1.5 rounded-full bg-[#FC4C02] animate-glow-pulse items-center" />
+        <div className="animate-fade-up inline-flex items-center gap-2 border border-white/15 rounded-full px-3 py-1 text-xs text-gray-400" style={{ animationDelay: '0ms' }}>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FC4C02] animate-glow-pulse" />
           Powered by Strava
         </div>
 
