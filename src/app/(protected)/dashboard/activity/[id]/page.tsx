@@ -15,6 +15,7 @@ import { SplitsTable, LapsTable } from '@/components/SplitsTable'
 import { WeatherCard } from '@/components/WeatherCard'
 import { ActivityStatsChips, GearDistance } from '@/components/ActivityStatsChips'
 import { SportIcon } from '@/components/SportIcon'
+import { ActivityPageTracker } from '@/components/ActivityPageTracker'
 import { Users2, Bike } from 'lucide-react'
 
 const ActivityMap = dynamic(
@@ -50,6 +51,7 @@ export default async function ActivityDetailPage({ params }: Props) {
 
   return (
     <>
+      <ActivityPageTracker sportType={activity.sport_type} />
       <div className="max-w-screen-lg mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="text-xs text-gray-500 dark:text-gray-400 mb-4 flex items-center gap-1.5 flex-wrap">

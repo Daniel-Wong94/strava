@@ -4,7 +4,19 @@ declare global {
   }
 }
 
-export function trackEvent(name: string, params?: Record<string, string | number>) {
+type EventMap = {
+  connect_strava: undefined
+  view_demo: undefined
+  open_info_modal: undefined
+  view_activity_detail: { sport_type: string }
+}
+
+type EventName = keyof EventMap
+
+export function trackEvent<T extends EventName>(
+  name: T,
+  ...args: EventMap[T] extends undefined ? [] : [params: EventMap[T]]
+): void {
   if (typeof window === 'undefined' || !window.gtag) return
-  window.gtag('event', name, params)
+  window.gtag('event', name, args[0])
 }
