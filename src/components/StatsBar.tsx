@@ -165,7 +165,7 @@ export function StatsBar({ activities, sportMode, totalDistance, totalElevation,
             <button
               key={stat.label}
               onClick={stat.onClick}
-              className="flex flex-col justify-between items-center px-3 py-3 bg-gray-50 dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-lg cursor-pointer hover:border-[var(--accent)] hover:bg-gray-100 dark:hover:bg-orange-950/30 dark:hover:border-[var(--accent)] transition-colors"
+              className="flex flex-col justify-between items-center px-3 py-3 bg-gray-50 dark:bg-[#161b22] border border-gray-200 dark:border-[#30363d] rounded-lg cursor-pointer hover:border-[var(--accent)] hover:bg-gray-100 dark:hover:bg-[color-mix(in_srgb,var(--accent)_30%,transparent)] dark:hover:border-[var(--accent)] transition-colors"
             >
               <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400 mb-1.5">
                 {stat.icon}
