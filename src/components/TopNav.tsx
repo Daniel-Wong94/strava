@@ -10,6 +10,7 @@ import { SettingsModal } from './modal/SettingsModal'
 import { InfoModal } from './modal/InfoModal'
 import { PrivacyModal } from './modal/PrivacyModal'
 import type { StravaAthlete } from '@/lib/types'
+import { trackEvent } from '@/lib/analytics'
 
 interface TopNavProps {
   athlete?: StravaAthlete
@@ -54,7 +55,7 @@ export function TopNav({ athlete, sticky = true }: TopNavProps) {
         {/* Right: icon buttons + avatar */}
         <div className="flex items-center gap-0.5">
           <button
-            onClick={() => setInfoOpen(true)}
+            onClick={() => { trackEvent('open_info_modal'); setInfoOpen(true) }}
             className="p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#21262d] transition-colors"
             aria-label="About"
           >

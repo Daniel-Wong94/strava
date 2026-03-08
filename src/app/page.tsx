@@ -1,4 +1,5 @@
 import { ConnectButton } from '@/components/ConnectButton'
+import { DemoLink } from '@/components/DemoLink'
 import { GitFitLogo } from '@/components/GitFitLogo'
 import { CyclingWord } from '@/components/CyclingWord'
 import { LayoutGrid, Award, Flame, Github, Linkedin } from 'lucide-react'
@@ -70,9 +71,7 @@ export default function LandingPage({
 
             <p className="mt-4 text-sm text-gray-500">
               Don&apos;t have Strava?{' '}
-              <a href="/demo" className="text-[#FC4C02] hover:underline font-medium">
-                View demo →
-              </a>
+              <DemoLink />
             </p>
 
           </div>

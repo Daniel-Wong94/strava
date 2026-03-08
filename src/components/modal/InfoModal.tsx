@@ -58,7 +58,7 @@ export function InfoModal({ isOpen, onClose }: InfoModalProps) {
           </p>
           <p>
             Connect once with your Strava account, this app is read-only and never modifies your
-            data. No database, no tracking, no ads.
+            data. No database, no personal data stored. Anonymous analytics only.
           </p>
           <p>
             Built with Next.js, Tailwind CSS, and powered by Strava.
