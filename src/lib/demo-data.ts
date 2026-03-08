@@ -30,16 +30,15 @@ function pick<T>(arr: T[]): T {
 
 export const DEMO_ATHLETE: StravaAthlete = {
   id: 99999999,
-  username: 'alexchen_runs',
-  firstname: 'Alex',
-  lastname: 'Chen',
-  city: 'San Francisco',
-  state: 'California',
+  firstname: 'Daniel',
+  lastname: 'Wong',
+  city: 'NYC',
+  state: 'New York',
   country: 'USA',
   profile: '',
   profile_medium: '',
   premium: true,
-  bio: 'Running, cycling, and swimming my way through life. Chasing PRs and sunrises.',
+  bio: 'Software engineer based in NYC. Currently training for my first marathon in Berlin. Always working on the next PR, on the road and in the codebase.',
   follower_count: 312,
   friend_count: 204,
   created_at: '2024-03-10T00:00:00Z',
@@ -48,8 +47,8 @@ export const DEMO_ATHLETE: StravaAthlete = {
     { id: 'b2', name: 'Canyon Neuron CF 7', primary: false, distance: 3150000 },
   ],
   shoes: [
-    { id: 's1', name: 'Nike Vaporfly 3', primary: true, distance: 1240000 },
-    { id: 's2', name: 'Hoka Clifton 9', primary: false, distance: 980000 },
+    { id: 's1', name: 'Nike Vomero Plus - Orange', primary: true, distance: 1240000 },
+    { id: 's2', name: 'Adidas Adizero Pro 4', primary: false, distance: 980000 },
   ],
 }
 
