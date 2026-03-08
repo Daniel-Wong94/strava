@@ -13,9 +13,10 @@ import type { StravaAthlete } from '@/lib/types'
 
 interface TopNavProps {
   athlete?: StravaAthlete
+  sticky?: boolean
 }
 
-export function TopNav({ athlete }: TopNavProps) {
+export function TopNav({ athlete, sticky = true }: TopNavProps) {
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [infoOpen, setInfoOpen] = useState(false)
   const [privacyOpen, setPrivacyOpen] = useState(false)
@@ -41,7 +42,7 @@ export function TopNav({ athlete }: TopNavProps) {
   }, [menuOpen])
 
   return (
-    <header className="sticky top-0 z-40 border-b border-gray-200 dark:border-[#30363d] bg-white dark:bg-[#161b22]">
+    <header className={`${sticky ? 'sticky top-0 z-40' : ''} border-b border-gray-200 dark:border-[#30363d] bg-white dark:bg-[#161b22]`}>
       <div className="max-w-screen-xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
 
         {/* Left: logo */}
